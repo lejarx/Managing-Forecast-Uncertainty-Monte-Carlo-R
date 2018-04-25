@@ -1,3 +1,4 @@
+#Copyright © 2018 Tristan Ganry
 library(RCurl)
 # Read data from Github - Qty sold over 15 years and in millions
 mydata <- read.csv(text = getURL("https://raw.githubusercontent.com/tristanga/MonteCarlo_ForecastRisk/master/TS.csv"))
