@@ -12,7 +12,7 @@ frequency(tseries)
 tseries_sub <- window(tseries, start=c(2000, 1), end=c(2015,9))
 # Define your target
 mytarget = 186.0000
-# Calculat YTD (Q1-Q3)
+# Calculate YTD (Q1-Q3)
 actualYTD <- sum(window(tseries, start=c(2015, 1), end=c(2015,9)))
 # Check the distribution of the time serie
 hist(tseries_sub)
