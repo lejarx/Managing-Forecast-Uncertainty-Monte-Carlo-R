@@ -1,3 +1,4 @@
+# install.packages('SuppDists')
 library(RCurl)
 # Read data from Github - Qty sold over 15 years and in millions
 mydata <- read.csv(text = getURL("https://raw.githubusercontent.com/tristanga/MonteCarlo_ForecastRisk/master/TS.csv"))
@@ -53,18 +54,18 @@ final_df1$Forecast <- actualYTD + final_df1$Oct + final_df1$Nov +final_df1$Dec
 hist(final_df1$Forecast)
 # Generate samples for Option B
 option2 <- function(x)qJohnson(x,parms)
-option2sample <- myfunction(runif(10000))
+option2sample <- option2(runif(10000))
 hist(option2sample)
 boxplot(option2sample,as.numeric(tseries_df$x) )
-final_df2 <- as.data.frame(myfunction(runif(10000)))
+final_df2 <- as.data.frame(option2(runif(10000)))
 colnames(final_df2) <- 'Oct'
-final_df2$Nov <- myfunction(runif(10000))
-final_df2$Dec <- myfunction(runif(10000))
+final_df2$Nov <- option2(runif(10000))
+final_df2$Dec <- option2(runif(10000))
 final_df2$Forecast <- actualYTD + final_df2$Oct + final_df2$Nov +final_df2$Dec
 # Plot Option B forecasted samples
 hist(final_df2$Forecast)
 
 #Summary of Option A and Option B approaches - Probability to achieve target is less than 33%
-boxplot(final_df$Forecast,final_df1$Forecast)
+boxplot(final_df2$Forecast,final_df1$Forecast)
 myproba1 <- sum( final_df1$Forecast >= 186 ) / 100
 myproba2 <- sum( final_df2$Forecast >= 186 ) / 100
